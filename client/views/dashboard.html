@@ -1,10 +1,10 @@
 
-    <md-content layout="column" flex ng-controller="nutritionController">
+    <md-content layout="column" flex ng-controller="gridController">
       
       <md-card>
-        <md-toolbar class="md-table-toolbar md-default " ng-hide="options.rowSelection && selected.length">
+        <md-toolbar class="md-table-toolbar md-default " >
           <div class="md-toolbar-tools">
-            <span>Nutrition</span>
+            <span>Data Path Interface</span>
             <div flex></div>
             <md-button class="md-icon-button" ng-click="loadStuff()">
               <md-icon>refresh</md-icon>
@@ -12,49 +12,34 @@
           </div>
         </md-toolbar>
         
-        <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
-          </div>
-        </md-toolbar>
+        
         
         <md-table-container>
-          <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+          <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" >
             <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
-                <th md-column md-order-by="name"><span>Dessert (100g serving)</span></th>
-                <th md-column md-order-by="type"><span>Type</span></th>
-                <th md-column md-numeric md-order-by="calories.value" md-desc><span>Calories</span></th>
-                <th md-column md-numeric md-order-by="fat.value"><span>Fat (g)</span></th>
-                <th md-column md-numeric md-order-by="carbs.value"><span>Carbs (g)</span></th>
-                <th md-column md-numeric md-order-by="protein.value"><span>Protein (g)</span></th>
-                <th md-column md-numeric md-order-by="sodium.value" hide-gt-xs show-gt-md><span>Sodium (mg)</span></th>
-                <th md-column md-numeric md-order-by="calcium.value" hide-gt-xs show-gt-lg><span>Calcium (%)</span></th>
-                <th md-column md-numeric md-order-by="iron.value" hide-gt-xs show-gt-lg><span>Iron (%)</span></th>
-                <th md-column md-order-by="comment">
-                  <md-icon>comments</md-icon>
-                  <span>Comments</span>
-                </th>
+                <th md-column md-order-by="name"><span>portName </span></th>
+                <th md-column md-order-by="type"><span>AliasName</span></th>
+                <th md-column md-numeric md-order-by="calories.value" md-desc><span>portDesp</span></th>
+                <th md-column md-numeric md-order-by="fat.value"><span>shutDown</span></th>
+                <th md-column md-numeric md-order-by="carbs.value"><span>ipAddress</span></th>
+                <th md-column md-numeric md-order-by="protein.value"><span>speed</span></th>
+                <th md-column md-numeric md-order-by="sodium.value" hide-gt-xs show-gt-md><span>mtu</span></th>
+                
+                
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                <td md-cell>{{dessert.name}}</td>
-                <td md-cell>
-                  <md-select ng-model="dessert.type" placeholder="Other">
-                    <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
-                  </md-select>
-                </td>
-                <td md-cell>{{dessert.calories.value}}</td>
-                <td md-cell>{{dessert.fat.value | number: 2}}</td>
-                <td md-cell>{{dessert.carbs.value}}</td>
-                <td md-cell>{{dessert.protein.value | number: 2}}</td>
-                <td md-cell hide-gt-xs show-gt-md>{{dessert.sodium.value}}</td>
-                <td md-cell hide-gt-xs show-gt-lg>{{dessert.calcium.value}}%</td>
-                <td md-cell hide-gt-xs show-gt-lg>{{dessert.iron.value}}%</td>
-                <td md-cell ng-click="editComment($event, dessert)" ng-class="{'md-placeholder': !dessert.comment}">
-                  {{dessert.comment || 'Add a comment'}}
-                </td>
+              <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit" >
+                <td md-cell>{{dessert.portName}}</td>
+                
+                <td md-cell>{{dessert.AliasName}}</td>
+                <td md-cell>{{dessert.portDesp}}</td>
+                <td md-cell>{{dessert.shutDown}}</td>
+                <td md-cell>{{dessert.ipAddress}}</td>
+                <td md-cell>{{dessert.speed}}</td>
+                <td md-cell hide-gt-xs show-gt-md>{{dessert.mtu}}</td>
+                
               </tr>
             </tbody>
           </table>
@@ -68,48 +53,68 @@
          <div ng-controller="sliderRightCntrl" layout="column" style="height:500px;" ng-cloak>
 
           <section layout="row" flex>
-            <md-content flex layout-padding>
-
-              <div layout="column" layout-align="top center">
-                <div>
-                  <md-button ng-click="toggleRight()"
-                    ng-hide="isOpenRight()"
-                    class="md-primary">
-                    Toggle right
-                  </md-button>
-                </div>
-              </div>
-
-              <div flex></div>
-
-            </md-content>
 
             <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
 
-              <md-toolbar class="md-theme-light">
-                <h1 class="md-toolbar-tools">Sidenav Right</h1>
+              <md-toolbar class="md-theme-light" >
+                <h1 class="md-toolbar-tools">{{selectedItem.portName}} Settings</h1>
               </md-toolbar>
-              <md-content layout-padding>
+              <md-content   layout-padding>
                 <form>
-                  <md-input-container>
-                    <label for="testInput">Test input</label>
+
+                  <md-input-container >
+                    <label for="testInput">Port Name</label>
                     <input type="text" id="testInput"
-                           ng-model="data" md-autofocus>
+                           ng-model="selectedItem.portName" md-autofocus>
                   </md-input-container>
-                </form>
-                <md-button ng-click="close()" class="md-primary">
-                  Close Sidenav Right
+                  <md-input-container>
+                    <label for="testInput">Alias Name</label>
+                    <input type="text" id="testInput"
+                           ng-model="selectedItem.AliasName" md-autofocus>
+                  </md-input-container>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>MTU</label>
+                      <input ng-model="selectedItem.mtu">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm > 
+                     <md-switch class="md-primary" name="special" ng-model="selectedItem.shutDown" required>
+                      Shut Down 
+                    </md-switch>      
+                  </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Speed</label>
+                      <input ng-model="selectedItem.speed">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Port desp</label>
+                      <input ng-model="selectedItem.portDesp">
+                    </md-input-container>
+                  </div>
+                  
+                  <md-input-container>
+                    <label for="testInput">IP Address</label>
+                    <input type="text" id="testInput"
+                           ng-model="selectedItem.ipAddress" md-autofocus>
+                  </md-input-container>
+                 
+                 <md-button ng-click="cancelSlider()" class="md-primary">
+                  Cancel
                 </md-button>
+                <md-button ng-click="close()" class="md-primary">
+                  Submit
+                </md-button>
+
+                </form>
               </md-content>
-
             </md-sidenav>
-
           </section>
-
         </div>
-
         <!-- sliderRight ends-->
-
     </md-content>
     
 
