@@ -7,7 +7,6 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
 
 
     $routeProvider
-
       .when("/",{
         templateUrl : "views/dashboard.html",
         controller : "gridController"
@@ -67,52 +66,8 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
     });
   
   
-  $scope.editComment = function (event, dessert) {
-    event.stopPropagation(); // in case autoselect is enabled
-    
-    var editDialog = {
-      modelValue: dessert.comment,
-      placeholder: 'Add a comment',
-      save: function (input) {
-        if(input.$modelValue === 'Donald Trump') {
-          input.$invalid = true;
-          return $q.reject();
-        }
-        if(input.$modelValue === 'Bernie Sanders') {
-          return dessert.comment = 'FEEL THE BERN!'
-        }
-        dessert.comment = input.$modelValue;
-      },
-      targetEvent: event,
-      title: 'Add a comment',
-      validators: {
-        'md-maxlength': 30
-      }
-    };
-    
-    var promise;
-    
-    if($scope.options.largeEditDialog) {
-      promise = $mdEditDialog.large(editDialog);
-    } else {
-      promise = $mdEditDialog.small(editDialog);
-    }
-    
-    promise.then(function (ctrl) {
-      var input = ctrl.getInput();
-      
-      input.$viewChangeListeners.push(function () {
-        input.$setValidity('test', input.$modelValue !== 'test');
-      });
-    });
-  };
-  
   $scope.toggleLimitOptions = function () {
     $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
-  };
-  
-  $scope.getTypes = function () {
-    return ['Candy', 'Ice cream', 'Other', 'Pastry'];
   };
   
   $scope.loadStuff = function () {
@@ -122,7 +77,7 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
   }
   
   $scope.logItem = function (item) {
-    console.log(item.name, 'was selected');
+    //console.log(item.name, 'was selected');
     console.log(item);
     $rootScope.selectedItem = item;
     $rootScope.selectedItemKeyValue = item.portName;
@@ -201,7 +156,7 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
           });
     };
   
-    $scope.close = function () {
+    $scope.submit = function () {
       // Component lookup should always be available since we are not using `ng-if`
       $mdSidenav('right').close()
         .then(function () {

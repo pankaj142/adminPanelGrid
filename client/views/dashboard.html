@@ -1,6 +1,5 @@
 
     <md-content layout="column" flex ng-controller="gridController">
-      
       <md-card>
         <md-toolbar class="md-table-toolbar md-default " >
           <div class="md-toolbar-tools">
@@ -12,19 +11,17 @@
           </div>
         </md-toolbar>
         
-        
-        
         <md-table-container>
           <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" >
             <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
-                <th md-column md-order-by="name"><span>portName </span></th>
-                <th md-column md-order-by="type"><span>AliasName</span></th>
+                <th md-column md-order-by="name"><span>Port Name </span></th>
+                <th md-column md-order-by="type"><span>Alias Name</span></th>
                 <th md-column md-numeric md-order-by="calories.value" md-desc><span>portDesp</span></th>
-                <th md-column md-numeric md-order-by="fat.value"><span>shutDown</span></th>
-                <th md-column md-numeric md-order-by="carbs.value"><span>ipAddress</span></th>
-                <th md-column md-numeric md-order-by="protein.value"><span>speed</span></th>
-                <th md-column md-numeric md-order-by="sodium.value" hide-gt-xs show-gt-md><span>mtu</span></th>
+                <th md-column md-numeric md-order-by="fat.value"><span>Shut Down</span></th>
+                <th md-column md-numeric md-order-by="carbs.value"><span>Ip Address</span></th>
+                <th md-column md-numeric md-order-by="protein.value"><span>Speed</span></th>
+                <th md-column md-numeric md-order-by="sodium.value" hide-gt-xs show-gt-md><span>MTU</span></th>
                 
                 
               </tr>
@@ -105,7 +102,7 @@
                  <md-button ng-click="cancelSlider()" class="md-primary">
                   Cancel
                 </md-button>
-                <md-button ng-click="close()" class="md-primary">
+                <md-button ng-click="submit()" class="md-primary">
                   Submit
                 </md-button>
 
