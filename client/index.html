@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="demoApp">
+
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Grid App</title>
+
+    <link href="assets/css/ui-grid.css" rel="stylesheet"> 
+    
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css">
+   
+    <!-- top-nav style -->  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+          font-family: "Lato", sans-serif;
+      }
+
+      .sidenav {
+        margin-top: 70px;
+          height: 100%;
+          width: 190px;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #d0d4db;
+          overflow-x: hidden;
+          padding-top: 20px;
+      }
+
+      .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #1f4c9b;
+          display: block;
+      }
+
+      .sidenav a:hover {
+          color: #f1f1f1;
+      }
+
+
+      .main {
+          margin-left: 190px; /* Same as the width of the sidenav */
+          font-size: 28px; /* Increased text to enable scrolling */
+          padding: 0px 10px;
+      }
+
+      @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+      }
+
+
+      </style>
+
+  </head>
+
+  <body layout="column" ng-cloak>
+
+    <nav class="navbar navbar-inverse" 
+       style="height: 70px; background-color: #d0d4db; ">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="font-size: 40px; color: #19191c; font-style: oblique;"> DB Admin v1.0 </a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" 
+             style="font-size: 20px; color: #19191c;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#" 
+            style="font-size: 20px; color: #19191c;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="sidenav">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+
+    <div class="main">
+       <div ng-view></div>
+    </div>
+   
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+      <script src="https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.js"></script>
+
+    	<script type="text/javascript" src="app.js"></script>
+    
+  </body>
+</html>
