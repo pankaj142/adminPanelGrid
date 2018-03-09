@@ -1,11 +1,10 @@
-angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
+var app=angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table']);
 
-.config(function($mdThemingProvider,$routeProvider, $locationProvider) {
-    
+app.config(function($mdThemingProvider,$routeProvider, $locationProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('blue');
 
-
+    //routes
     $routeProvider
       .when("/",{
         templateUrl : "views/dashboard.html",
@@ -30,13 +29,17 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
             enabled: true,
             requireBase: false
        });  
-  
+});
+
+//service to handle sharable data between controller
+app.service("sharableData", function(){
+  var selectedItemKeyValue;
+  return{
+      selectedItemKeyValue : selectedItemKeyValue
+  };
 })
 
-
-.controller('gridController', ['$http','$mdEditDialog', '$q', '$scope', '$timeout','$rootScope', function ($http, $mdEditDialog, $q, $scope, $timeout,$rootScope) {
-  'use strict';
-  
+app.controller('gridController', function (sharableData,$http, $mdEditDialog, $q, $scope, $timeout,$rootScope) {
   $scope.selected = [];
   $scope.limitOptions = [5, 10, 15];
   
@@ -61,8 +64,7 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
   $http.get("/getData")
     .then(function(response) {
       console.log("data from server",response.data)
-      $rootScope.desserts=response.data;
-
+      $rootScope.dataPathDetails=response.data;
     });
   
   
@@ -77,10 +79,9 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
   }
   
   $scope.logItem = function (item) {
-    //console.log(item.name, 'was selected');
     console.log(item);
     $rootScope.selectedItem = item;
-    $rootScope.selectedItemKeyValue = item.portName;
+    sharableData.selectedItemKeyValue = item.portName;
     $rootScope.toggleRight();
   };
   
@@ -92,12 +93,12 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
     console.log('page: ', page);
     console.log('limit: ', limit);
   }
-}])
+});
 
 
 
 //sliderRight Controller
-  .controller('sliderRightCntrl', function ($http,$scope, $timeout, $mdSidenav, $log, $rootScope) {
+app.controller('sliderRightCntrl', function (sharableData,$http,$scope, $timeout, $mdSidenav, $log, $rootScope) {
     $scope.toggleLeft = buildDelayedToggler('left');
     $rootScope.toggleRight = buildToggler('right');
     $scope.isOpenRight = function(){
@@ -149,20 +150,29 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
       };
     }
 
+    //handle  slider cancel button
     $scope.cancelSlider= function(){
        $mdSidenav('right').close()
           .then(function(){
             $log.log("cancel slider");
+
+            $http.get("/getData")
+              .then(function(response) {
+                console.log("data from server",response.data)
+                $rootScope.dataPathDetails=response.data;
+              });
+
           });
     };
   
+    //handle slider submit button
     $scope.submit = function () {
       // Component lookup should always be available since we are not using `ng-if`
       $mdSidenav('right').close()
         .then(function () {
           $log.debug("close RIGHT is done");
           var updatedValues = {
-            portNameOld :$rootScope.selectedItemKeyValue,
+            portNameOld :sharableData.selectedItemKeyValue,
             portName :$rootScope.selectedItem.portName,
             AliasName :$rootScope.selectedItem.AliasName,
             portDesp: $rootScope.selectedItem.portDesp,
@@ -181,12 +191,9 @@ angular.module('adminPanelGridApp', ["ngRoute",'ngMaterial', 'md.data.table'])
                 $http.get("/getData")
                   .then(function(response) {
                     console.log("updated data from server",response.data)
-                   // $rootScope.desserts=response.data;
-
                   });
 
               });
-
         });
     };
   });

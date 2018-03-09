@@ -27,22 +27,22 @@
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit" >
-                <td md-cell>{{dessert.portName}}</td>
+              <tr md-row md-select="dataPath" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dataPath.calories.value > 400" ng-repeat="dataPath in dataPathDetails.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit" >
+                <td md-cell>{{dataPath.portName}}</td>
                 
-                <td md-cell>{{dessert.AliasName}}</td>
-                <td md-cell>{{dessert.portDesp}}</td>
-                <td md-cell>{{dessert.shutDown}}</td>
-                <td md-cell>{{dessert.ipAddress}}</td>
-                <td md-cell>{{dessert.speed}}</td>
-                <td md-cell hide-gt-xs show-gt-md>{{dessert.mtu}}</td>
+                <td md-cell>{{dataPath.AliasName}}</td>
+                <td md-cell>{{dataPath.portDesp}}</td>
+                <td md-cell>{{dataPath.shutDown}}</td>
+                <td md-cell>{{dataPath.ipAddress}}</td>
+                <td md-cell>{{dataPath.speed}}</td>
+                <td md-cell hide-gt-xs show-gt-md>{{dataPath.mtu}}</td>
                 
               </tr>
             </tbody>
           </table>
         </md-table-container>
 
-        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{dataPathDetails.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
       </md-card>
       
 
@@ -58,7 +58,6 @@
               </md-toolbar>
               <md-content   layout-padding>
                 <form>
-
                   <md-input-container >
                     <label for="testInput">Port Name</label>
                     <input type="text" id="testInput"

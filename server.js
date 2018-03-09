@@ -1,5 +1,6 @@
 var express = require("express");
 var path    = require("path");
+var port    = process.env.PORT || 3000;
 
 var bodyParser = require("body-parser");
 var app =express();
@@ -107,17 +108,17 @@ var dataPathDetails = {
 
 //route /getData
 app.get('/getData',(req,res)=>{
-	res.json(dataPathDetails);
-    //console.log("get api",req)
-   // res.end();
-})
+  res.json(dataPathDetails);
+});
+
 app.post('/updateData',(req,res)=>{
-    //var id=res.params.id;
     var updatedValues =req.body;
       console.log(updatedValues);
-     res.end();
-
-     var updatedData= dataPathDetails.data.map(function(item){
+      var updatedData= {
+        "count": 9,
+        "data" :[] 
+      }
+      updatedData.data= dataPathDetails.data.map(function(item){
         if(item.portName ===updatedValues.portNameOld){
             return {
                 portName     : updatedValues.portName,
@@ -134,8 +135,8 @@ app.post('/updateData',(req,res)=>{
      })
 
      dataPathDetails=updatedData;
-     console.log("updated",updatedData)
-
+     console.log("updated at server",updatedData)
+     res.json(updatedData);
 })
 
 
@@ -145,5 +146,5 @@ app.get('*', (req,res)=> {
 });
 
 
-app.listen(3000,()=>{
-	console.log("server is listening on 3000")})
+app.listen(port,()=>{
+  console.log("server is listening on ", port)})
