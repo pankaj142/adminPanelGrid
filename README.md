@@ -22,7 +22,7 @@ Admin Panel that makes use of Grid for maintaining the data.
 
 # See App
 
-Heroku Link: NA
+Heroku Link: https://admin-panel-grid.herokuapp.com/
 
 # To start the app follow the commands on command prompt:
 
